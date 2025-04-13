@@ -2,6 +2,9 @@ package com.hector.springboot.backend.jokes.models.entity;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -20,7 +23,12 @@ import jakarta.persistence.JoinColumn;
 @Table(name = "flags", catalog = "jokes")
 public class Flags implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
+	@GeneratedValue
 	private Long id;
 	@Column(name = "flag", length = 100)
 	private String flag;
@@ -28,6 +36,7 @@ public class Flags implements java.io.Serializable {
 	@JoinTable(name = "jokes_flags", catalog = "jokes", joinColumns = {
 			@JoinColumn(name = "flag_id") }, inverseJoinColumns = {
 					@JoinColumn(name = "joke_id") })
+	@JsonBackReference
 	private Set<Jokes> jokeses = new HashSet<Jokes>(0);
 
 	public Flags() {

@@ -16,4 +16,5 @@ public interface IJokesService {
 	
 	public List<JokesDTO> findAllDTO();
 	
+	
 }

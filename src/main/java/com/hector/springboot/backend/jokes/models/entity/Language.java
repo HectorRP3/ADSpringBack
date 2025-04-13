@@ -21,6 +21,10 @@ import jakarta.persistence.JoinColumn;
 @Table(name = "language", catalog = "jokes")
 public class Language implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	private int id;
 	@Column(name = "code", length = 10)

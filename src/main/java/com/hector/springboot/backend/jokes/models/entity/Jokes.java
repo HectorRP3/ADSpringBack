@@ -5,7 +5,11 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,6 +27,7 @@ import jakarta.persistence.JoinColumn;
 
 @Entity
 @Table(name = "jokes")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Jokes implements Serializable {
 
 	/**
@@ -31,17 +36,20 @@ public class Jokes implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
 	private Categories categories;
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "language_id")
+	@JsonBackReference
 	private Language language;
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "type_id")
+	@JsonBackReference
 	private Types types;
 	@Column(name = "text1", length = 1000)
 	private String text1;
@@ -51,6 +59,7 @@ public class Jokes implements Serializable {
 	@JoinTable(name = "jokes_flags", catalog = "jokes", joinColumns = {
 			@JoinColumn(name = "joke_id") }, inverseJoinColumns = {
 					@JoinColumn(name = "flag_id") })
+	@JsonManagedReference
 	private Set<Flags> flagses = new HashSet<Flags>(0);
 
 

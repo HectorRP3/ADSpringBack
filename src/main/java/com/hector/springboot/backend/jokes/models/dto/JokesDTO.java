@@ -2,6 +2,8 @@ package com.hector.springboot.backend.jokes.models.dto;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+@JsonInclude(JsonInclude.Include.ALWAYS)
 public class JokesDTO {
 
 	private Long id;

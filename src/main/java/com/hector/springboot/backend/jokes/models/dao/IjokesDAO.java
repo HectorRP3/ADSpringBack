@@ -1,13 +1,13 @@
 package com.hector.springboot.backend.jokes.models.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 
-import com.hector.springboot.backend.jokes.models.dto.JokesDTO;
 import com.hector.springboot.backend.jokes.models.entity.Jokes;
 
-public interface IjokesDAO  extends JpaRepository<Jokes, Long>{
+public interface IjokesDAO  extends CrudRepository<Jokes, Long>{
 	
-	
+	List<Jokes> findAll();
 
 }

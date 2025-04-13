@@ -1,5 +1,6 @@
 package com.hector.springboot.backend.jokes.models.services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,22 +19,20 @@ public class JokesServiceImpl implements IJokesService {
 
 	@Autowired
 	private IjokesDAO jokesDao;
-	
+
 	@Autowired
 	private JokesMapper jokesMapper;
-	
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<Jokes> findAll() {
-		return  (List<Jokes>)jokesDao.findAll();
+		return (List<Jokes>) jokesDao.findAll();
 	}
-	@Override
-	public List<JokesDTO> findAllDTO() {
-		 return jokesDao.findAll().stream()
-	               .map(jokesMapper::toDTO)
-	               .collect(Collectors.toList());
-	}
-	
-	
 
+	@Override
+	@Transactional(readOnly = true)
+	public List<JokesDTO> findAllDTO() {
+		return jokesDao.findAll().stream().map(jokesMapper::toDTO).collect(Collectors.toList());
+	}
+	
 }

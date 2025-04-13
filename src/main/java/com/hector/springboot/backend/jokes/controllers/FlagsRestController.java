@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hector.springboot.backend.jokes.models.entity.Flags;
 import com.hector.springboot.backend.jokes.models.services.IFlagsService;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"*"})
 @RestController
 @RequestMapping("/api")
 public class FlagsRestController {
