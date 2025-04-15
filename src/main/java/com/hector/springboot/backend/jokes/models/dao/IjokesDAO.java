@@ -9,5 +9,6 @@ import com.hector.springboot.backend.jokes.models.entity.Jokes;
 public interface IjokesDAO  extends CrudRepository<Jokes, Long>{
 	
 	List<Jokes> findAll();
+	
 
 }

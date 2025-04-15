@@ -16,5 +16,9 @@ public interface IJokesService {
 	
 	public List<JokesDTO> findAllDTO();
 	
+	public JokesDTO findByIdDTO(Long id);
+	
+	public Jokes findById(Long id);
+	
 	
 }

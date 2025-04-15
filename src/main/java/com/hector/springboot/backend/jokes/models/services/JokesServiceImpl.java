@@ -34,5 +34,23 @@ public class JokesServiceImpl implements IJokesService {
 	public List<JokesDTO> findAllDTO() {
 		return jokesDao.findAll().stream().map(jokesMapper::toDTO).collect(Collectors.toList());
 	}
+	
+	@Transactional
+	public JokesDTO findByIdDTO(Long id) {
+		JokesDTO jokesDTO = null;
+		Jokes jokes = jokesDao.findById(id).orElse(null);
+		if (jokes != null) {
+			jokesDTO = jokesMapper.toDTO(jokes);
+		} 
+		return jokesDTO;
+	}
+
+	@Override
+	public Jokes findById(Long id) {
+		return jokesDao.findById(id).orElse(null);
+	}
+
+	
+	
 	
 }

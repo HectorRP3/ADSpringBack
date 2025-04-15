@@ -12,13 +12,13 @@ public class JokesDTO {
 	private String category;
 	private String type;
 	private String language;
-	private Set<FlagsDTO> flags;
+	private Set<String> flags;
 	
 	public JokesDTO() {
 	}
 
 	public JokesDTO(Long id, String text1,String text2, String category, String type, String language,
-			Set<FlagsDTO> flags) {
+			Set<String> flags) {
 		this.id = id;
 		this.text1 = text1;
 		this.text2 = text2;
@@ -76,11 +76,11 @@ public class JokesDTO {
 		this.language = language;
 	}
 
-	public Set<FlagsDTO> getFlags() {
+	public Set<String> getFlags() {
 		return flags;
 	}
 
-	public void setFlags(Set<FlagsDTO> flags) {
+	public void setFlags(Set<String> flags) {
 		this.flags = flags;
 	}
 

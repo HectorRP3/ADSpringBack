@@ -23,7 +23,7 @@ public class JokesMapper {
 		if (jokes.getLanguage() != null) {
 			dto.setLanguage(jokes.getLanguage().getLanguage());
 		}
-		dto.setFlags(jokes.getFlagses().stream().map(FlagsMapper::toFlagsDTO).collect(Collectors.toSet()));
+		dto.setFlags(jokes.getFlagses().stream().map(f->f.getFlag()).collect(Collectors.toSet()));
 		return dto;
 	}
 

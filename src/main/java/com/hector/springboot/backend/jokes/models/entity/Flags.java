@@ -36,7 +36,6 @@ public class Flags implements java.io.Serializable {
 	@JoinTable(name = "jokes_flags", catalog = "jokes", joinColumns = {
 			@JoinColumn(name = "flag_id") }, inverseJoinColumns = {
 					@JoinColumn(name = "joke_id") })
-	@JsonBackReference
 	private Set<Jokes> jokeses = new HashSet<Jokes>(0);
 
 	public Flags() {
