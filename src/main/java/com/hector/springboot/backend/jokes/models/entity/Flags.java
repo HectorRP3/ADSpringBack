@@ -75,5 +75,9 @@ public class Flags implements java.io.Serializable {
 	public void setJokeses(Set<Jokes> jokeses) {
 		this.jokeses = jokeses;
 	}
+	
+	public String toString() {
+		return "Flags [id=" + id + ", flag=" + flag + "]";
+	}
 
 }

@@ -137,5 +137,10 @@ public class Jokes implements Serializable {
 	public void setFlagses(Set<Flags> flagses) {
 		this.flagses = flagses;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "Jokes [id=" + id + ", categories=" + categories + ", language=" + language + ", types=" + types
+				+ ", text1=" + text1 + ", text2=" + text2 + "]";
+	}
 }

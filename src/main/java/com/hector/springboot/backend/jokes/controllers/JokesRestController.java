@@ -91,6 +91,7 @@ public class JokesRestController {
 	public ResponseEntity<?> update(@Valid @RequestBody Jokes jokes,BindingResult result, @PathVariable Long id){
 		Jokes jokesActual = jokesService.findById(id);
 		Jokes jokesUpdated = null;
+		System.out.println(jokes);
 		Map<String,Object> response = new HashMap<>();
 		if (result.hasErrors()) {
 			List<String> errors = result.getFieldErrors().stream()
@@ -104,14 +105,21 @@ public class JokesRestController {
 					.concat(id.toString().concat(" no existe en la base de datos!")));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
+		System.out.println(jokes);
+
 		try {
+			System.out.println(jokes);
 			jokesActual.setText1(jokes.getText1());
 			jokesActual.setText2(jokes.getText2());
 			jokesActual.setCategories(jokes.getCategories());
 			jokesActual.setTypes(jokes.getTypes());
 			jokesActual.setLanguage(jokes.getLanguage());
-			jokesUpdated = jokesService.save(jokesActual);
+			jokesActual.setFlagses(jokes.getFlagses());
+			jokesActual.setId(jokes.getId());
+		
+            jokesUpdated = jokesService.save(jokesActual);
 		} catch (DataAccessException e) {
+			e.printStackTrace();
 			response.put("mensaje", "Error al realizar la actualización en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
