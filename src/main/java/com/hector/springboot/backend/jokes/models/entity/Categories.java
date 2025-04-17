@@ -30,7 +30,7 @@ public class Categories implements java.io.Serializable {
 	@Id
 	private int id;
 	private String category;
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "categories")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "categories",orphanRemoval = true)
 	private Set<Jokes> jokeses = new HashSet<Jokes> (0);
 
 	public Categories() {

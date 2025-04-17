@@ -11,4 +11,8 @@ public interface IFlagsService {
 	public List<Flags> findAll();
 	public List<FlagsDTO> findAllDTO();
 	public FlagsDTO findByIdDTO(Long id);
+	
+	public Flags findById(Long id);
+	public Flags save(Flags flags);
+	public void delete(Long id);
 }

@@ -2,9 +2,11 @@ package com.hector.springboot.backend.jokes.mapper;
 
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Component;
+
 import com.hector.springboot.backend.jokes.models.dto.FlagsDTO;
 import com.hector.springboot.backend.jokes.models.entity.Flags;
-
+@Component
 public class FlagsMapper {
 	
 	public static FlagsDTO toFlagsDTO(Flags flags) {

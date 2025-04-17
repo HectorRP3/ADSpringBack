@@ -26,5 +26,6 @@ public class JokesMapper {
 		dto.setFlags(jokes.getFlagses().stream().map(f->f.getFlag()).collect(Collectors.toSet()));
 		return dto;
 	}
+	
 
 }

@@ -28,7 +28,7 @@ public class Flags implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(name = "flag", length = 100)
 	private String flag;
@@ -49,7 +49,7 @@ public class Flags implements java.io.Serializable {
 	public Flags(Long id, String flag, Set<Jokes> jokeses) {
 		this.id = id;
 		this.flag = flag;
-		//this.jokeses = jokeses;
+		this.jokeses = jokeses;
 	}
 	public Long getId() {
 		return this.id;

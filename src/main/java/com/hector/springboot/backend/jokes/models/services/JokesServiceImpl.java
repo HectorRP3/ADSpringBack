@@ -36,6 +36,7 @@ public class JokesServiceImpl implements IJokesService {
 	}
 	
 	@Transactional
+	
 	public JokesDTO findByIdDTO(Long id) {
 		JokesDTO jokesDTO = null;
 		Jokes jokes = jokesDao.findById(id).orElse(null);
@@ -46,9 +47,27 @@ public class JokesServiceImpl implements IJokesService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Jokes findById(Long id) {
 		return jokesDao.findById(id).orElse(null);
 	}
+
+	@Override
+	@Transactional
+
+	public Jokes save(Jokes jokes) {
+		return jokesDao.save(jokes);
+	}
+
+	@Override
+	@Transactional
+	public void delete(Long id) {
+		jokesDao.deleteById(id);
+		
+	}
+	
+	
+	
 
 	
 	

@@ -39,4 +39,20 @@ public class FlagsServiceImpl implements IFlagsService {
 		}
 		return flagsDTO;
 	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Flags findById(Long id) {
+		return flagsDao.findById(id).orElse(null);
+	}
+
+	@Override
+	public Flags save(Flags flags) {
+		return flagsDao.save(flags);
+	}
+
+	@Override
+	public void delete(Long id) {
+		flagsDao.deleteById(id);
+	}
 }

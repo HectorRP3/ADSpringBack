@@ -20,5 +20,9 @@ public interface IJokesService {
 	
 	public Jokes findById(Long id);
 	
+	public Jokes save(Jokes jokes);
+	
+	public void delete(Long id);
+	
 	
 }

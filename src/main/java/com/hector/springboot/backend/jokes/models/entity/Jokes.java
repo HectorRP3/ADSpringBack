@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -35,7 +36,7 @@ public class Jokes implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 
@@ -52,7 +53,7 @@ public class Jokes implements Serializable {
 	private String text1;
 	@Column(name = "text2", length = 1000)
 	private String text2;
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY,cascade= {CascadeType.MERGE})
 	@JoinTable(name = "jokes_flags", catalog = "jokes", joinColumns = {
 			@JoinColumn(name = "joke_id") }, inverseJoinColumns = {
 					@JoinColumn(name = "flag_id") })

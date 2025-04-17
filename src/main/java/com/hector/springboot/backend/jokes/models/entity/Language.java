@@ -31,7 +31,7 @@ public class Language implements java.io.Serializable {
 	private String code;
 	@Column(name = "language", length = 100)
 	private String language;
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "language")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "language", orphanRemoval = true)
 	private Set<Jokes> jokeses = new HashSet<Jokes>(0);
 
 	public Language() {

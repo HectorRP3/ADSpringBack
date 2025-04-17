@@ -20,11 +20,15 @@ import jakarta.persistence.JoinColumn;
 @Table(name = "types", catalog = "jokes")
 public class Types implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	private int id;
 	@Column(name = "type", length = 100)
 	private String type;
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "types")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "types", orphanRemoval = true)
 	private Set<Jokes> jokeses = new HashSet<Jokes>(0);
 
 	public Types() {
