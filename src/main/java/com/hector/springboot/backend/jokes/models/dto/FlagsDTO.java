@@ -5,17 +5,17 @@ import java.util.Set;
 public class FlagsDTO {
 	private Long id;
 	private String flag;
-	private Set<Long> jokesId;
+	private Set<Long> jokeses;
 	
 	public FlagsDTO() {
 	}
 	
 	
-	public FlagsDTO(Long id, String flag, Set<Long> jokesId) {
+	public FlagsDTO(Long id, String flag, Set<Long> jokeses) {
 		super();
 		this.id = id;
 		this.flag = flag;
-		this.jokesId = jokesId;
+		this.jokeses = jokeses;
 	}
 	public Long getId() {
 		return id;
@@ -29,11 +29,11 @@ public class FlagsDTO {
 	public void setFlag(String flag) {
 		this.flag = flag;
 	}
-	public Set<Long> getJokesId() {
-		return jokesId;
+	public Set<Long> getJokeses() {
+		return jokeses;
 	}
-	public void setJokesId(Set<Long> jokesId) {
-		this.jokesId = jokesId;
+	public void setJokeses(Set<Long> jokeses) {
+		this.jokeses = jokeses;
 	}
 	
 	

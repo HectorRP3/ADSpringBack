@@ -115,7 +115,6 @@ public class JokesRestController {
 			jokesActual.setTypes(jokes.getTypes());
 			jokesActual.setLanguage(jokes.getLanguage());
 			jokesActual.setFlagses(jokes.getFlagses());
-			jokesActual.setId(jokes.getId());
 		
             jokesUpdated = jokesService.save(jokesActual);
 		} catch (DataAccessException e) {

@@ -13,7 +13,7 @@ public class FlagsMapper {
 		FlagsDTO flagsDTO = new FlagsDTO();
 		flagsDTO.setId(flags.getId());
 		flagsDTO.setFlag(flags.getFlag());
-		flagsDTO.setJokesId(flags.getJokeses().stream().map(j -> j.getId()).collect(Collectors.toSet()));
+		flagsDTO.setJokeses(flags.getJokeses().stream().map(j -> j.getId()).collect(Collectors.toSet()));
 		return flagsDTO;
 	}
 
