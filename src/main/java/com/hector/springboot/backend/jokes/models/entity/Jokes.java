@@ -25,6 +25,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 @Table(name = "jokes")
@@ -58,6 +60,8 @@ public class Jokes implements Serializable {
 			@JoinColumn(name = "joke_id") }, inverseJoinColumns = {
 					@JoinColumn(name = "flag_id") })
 	private Set<Flags> flagses = new HashSet<Flags>(0);
+    @OneToOne(mappedBy = "jokes", fetch = FetchType.LAZY)
+	 private PrimeraVez primeraVez;
 
 
 	public Jokes() {
@@ -68,7 +72,7 @@ public class Jokes implements Serializable {
 	}
 
 	public Jokes(Long id, Categories categories, Language language, Types types, String text1, String text2,
-			Set<Flags> flagses) {
+			Set<Flags> flagses,PrimeraVez primeraVezs) {
 		this.id = id;
 		this.categories = categories;
 		this.language = language;
@@ -76,6 +80,7 @@ public class Jokes implements Serializable {
 		this.text1 = text1;
 		this.text2 = text2;
 		this.flagses = flagses;
+		this.primeraVez = primeraVezs;
 	}
 
 	
@@ -136,6 +141,14 @@ public class Jokes implements Serializable {
 
 	public void setFlagses(Set<Flags> flagses) {
 		this.flagses = flagses;
+	}
+	
+	public PrimeraVez getPrimeraVez() {
+		return this.primeraVez;
+	}
+
+	public void setPrimeraVez(PrimeraVez primeraVez) {
+		this.primeraVez = primeraVez;
 	}
 	
 	@Override

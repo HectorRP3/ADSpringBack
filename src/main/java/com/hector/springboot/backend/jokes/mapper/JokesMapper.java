@@ -24,6 +24,9 @@ public class JokesMapper {
 			dto.setLanguage(jokes.getLanguage().getLanguage());
 		}
 		dto.setFlags(jokes.getFlagses().stream().map(f->f.getFlag()).collect(Collectors.toSet()));
+		if (jokes.getPrimeraVez() != null) {
+			dto.setPrimeraVez(jokes.getPrimeraVez());
+		}
 		return dto;
 	}
 	

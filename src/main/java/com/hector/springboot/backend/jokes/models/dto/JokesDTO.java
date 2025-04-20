@@ -3,6 +3,7 @@ package com.hector.springboot.backend.jokes.models.dto;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.hector.springboot.backend.jokes.models.entity.PrimeraVez;
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public class JokesDTO {
 
@@ -13,12 +14,13 @@ public class JokesDTO {
 	private String type;
 	private String language;
 	private Set<String> flags;
+	private PrimeraVez primeraVez;
 	
 	public JokesDTO() {
 	}
 
 	public JokesDTO(Long id, String text1,String text2, String category, String type, String language,
-			Set<String> flags) {
+			Set<String> flags, PrimeraVez primeraVez) {
 		this.id = id;
 		this.text1 = text1;
 		this.text2 = text2;
@@ -26,6 +28,7 @@ public class JokesDTO {
 		this.type = type;
 		this.language = language;
 		this.flags = flags;
+		this.primeraVez = primeraVez;
 	}
 
 	public Long getId() {
@@ -82,6 +85,14 @@ public class JokesDTO {
 
 	public void setFlags(Set<String> flags) {
 		this.flags = flags;
+	}
+	
+	public PrimeraVez getPrimeraVez() {
+		return primeraVez;
+	}
+
+	public void setPrimeraVez(PrimeraVez primeraVez) {
+		this.primeraVez = primeraVez;
 	}
 
 }
