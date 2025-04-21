@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 
+import com.hector.springboot.backend.jokes.mapper.TelefonoMapper;
+import com.hector.springboot.backend.jokes.models.dto.TelefonosDTO;
 import com.hector.springboot.backend.jokes.models.entity.Telefonos;
 import com.hector.springboot.backend.jokes.models.services.ITelefonosService;
 
@@ -25,10 +27,12 @@ public class TelefonoRestController {
 	
 	@Autowired
 	private ITelefonosService telefonoService;
-	
+
+	@Autowired
+	private TelefonoMapper telefonoMapper;
 	@GetMapping("/telefonos")
-	public List<Telefonos> index() {
-		return telefonoService.findAll();
+	public List<TelefonosDTO> index() {
+		return telefonoService.findAll().stream().map(telefonoMapper::toDto).toList();
 	}
 	
 	@GetMapping("/telefonos/{id}")

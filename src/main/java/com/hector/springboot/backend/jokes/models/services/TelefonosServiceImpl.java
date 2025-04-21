@@ -36,4 +36,15 @@ public class TelefonosServiceImpl implements ITelefonosService {
         telefonosDAO.deleteById(id);
 	}
 
+	@Override
+	public void deleteAllWithPrimeraVezById(Long id) {
+		List<Telefonos> telefonos = (List<Telefonos>) telefonosDAO.findAll();
+		for (Telefonos telefono : telefonos) {
+			if (telefono.getPrimeraVez().getId() == id) {
+				telefonosDAO.deleteById(telefono.getId());
+			}
+		}
+		
+	}
+
 }

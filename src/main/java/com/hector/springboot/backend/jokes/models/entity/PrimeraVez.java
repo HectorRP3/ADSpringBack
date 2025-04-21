@@ -39,7 +39,6 @@ public class PrimeraVez implements java.io.Serializable {
 	@Column(name = "id", unique = true, nullable = false)
 	private long id;
 	@OneToOne(optional = false)
-	@JsonIgnore
     @JoinColumn(name = "idjoke", unique = true)
     private Jokes jokes;
 	@Column(name = "programa", nullable = false)
@@ -102,11 +101,11 @@ public class PrimeraVez implements java.io.Serializable {
 		this.fechaEmision = fechaEmision;
 	}
 
-	public Set getTelefonoses() {
+	public Set<Telefonos> getTelefonoses() {
 		return this.telefonoses;
 	}
 
-	public void setTelefonoses(Set telefonoses) {
+	public void setTelefonoses(Set<Telefonos> telefonoses) {
 		this.telefonoses = telefonoses;
 	}
 

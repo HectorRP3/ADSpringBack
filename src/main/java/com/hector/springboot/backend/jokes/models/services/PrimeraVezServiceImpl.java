@@ -35,7 +35,6 @@ public class PrimeraVezServiceImpl implements IPrimeraVezService {
 	}
 
 	@Override
-	@Transactional
 	public void delete(Long id) {
 		primeraVezDAO.deleteById(id);
 	}
