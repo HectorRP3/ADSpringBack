@@ -14,13 +14,13 @@ public class JokesDTO {
 	private String type;
 	private String language;
 	private Set<String> flags;
-	private PrimeraVez primeraVez;
+	private PrimeraVezDto primeraVez;
 	
 	public JokesDTO() {
 	}
 
 	public JokesDTO(Long id, String text1,String text2, String category, String type, String language,
-			Set<String> flags, PrimeraVez primeraVez) {
+			Set<String> flags, PrimeraVezDto primeraVez) {
 		this.id = id;
 		this.text1 = text1;
 		this.text2 = text2;
@@ -87,11 +87,11 @@ public class JokesDTO {
 		this.flags = flags;
 	}
 	
-	public PrimeraVez getPrimeraVez() {
+	public PrimeraVezDto getPrimeraVez() {
 		return primeraVez;
 	}
 
-	public void setPrimeraVez(PrimeraVez primeraVez) {
+	public void setPrimeraVez(PrimeraVezDto primeraVez) {
 		this.primeraVez = primeraVez;
 	}
 

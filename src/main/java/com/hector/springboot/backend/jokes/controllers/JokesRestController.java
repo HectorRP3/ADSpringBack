@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,6 +26,8 @@ import com.hector.springboot.backend.jokes.mapper.JokesMapper;
 import com.hector.springboot.backend.jokes.models.dto.JokesDTO;
 import com.hector.springboot.backend.jokes.models.entity.Jokes;
 import com.hector.springboot.backend.jokes.models.services.IJokesService;
+import com.hector.springboot.backend.jokes.models.services.IPrimeraVezService;
+
 import jakarta.*;
 import jakarta.validation.Valid;
 
@@ -34,14 +37,48 @@ import jakarta.validation.Valid;
 public class JokesRestController {
 	@Autowired
 	private IJokesService jokesService;
+	@Autowired
+	private IPrimeraVezService primeraVezService;
 	
 	@Autowired
 	private JokesMapper jokesMapper;
 
 	
+	/*@GetMapping("/jokes")
+	public List<Jokes> index(){
+		return jokesService.findAll().stream().sorted((j1, j2) -> j1.getId().compareTo(j2.getId())).toList();
+	}*/
 	@GetMapping("/jokes")
-	public List<JokesDTO> index(){
-		return jokesService.findAllDTO().stream().sorted((j1, j2) -> j1.getId().compareTo(j2.getId())).toList();
+	public ResponseEntity<?> search(@RequestParam(name = "texto", required = false)String texto) {
+		Map<String, Object> response = new HashMap<>();
+		List<JokesDTO> jokesDTOList = null;
+		try {
+			if(texto!=null) {
+				jokesDTOList = jokesService.findAllDTO().stream()
+						.filter(j -> {
+							if (j.getText1() != null) {
+								return j.getText1().toLowerCase().contains(texto.toLowerCase());
+							}
+							return false;
+						})
+						.collect(Collectors.toList());
+			}else {
+				jokesDTOList = jokesService.findAllDTO().stream().sorted((j1, j2) -> j1.getId().compareTo(j2.getId()))
+						.toList();
+				return new ResponseEntity<List<JokesDTO>>(jokesDTOList, HttpStatus.OK);
+			}
+			
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		if (jokesDTOList.isEmpty()) {
+			response.put("mensaje", "No hay chistes que contengan el texto: ".concat(texto));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<JokesDTO>>(jokesDTOList, HttpStatus.OK);
+
 	}
 	
 	@GetMapping("/jokes/{id}")
@@ -156,6 +193,49 @@ public class JokesRestController {
 		response.put("mensaje", "El chiste ha sido eliminado con éxito!");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
+	
+	@GetMapping("/jokesWithprimeraVez")
+	public ResponseEntity<?> getJokesWithPrimeraVez() {
+		Map<String, Object> response = new HashMap<>();
+		List<JokesDTO> jokesDTOList = null;
+		try {
+			jokesDTOList = jokesService.findAllDTO().stream().filter(j -> j.getPrimeraVez() != null)
+					.collect(Collectors.toList());
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		if (jokesDTOList.isEmpty()) {
+			response.put("mensaje", "No hay chistes asociados a una primera vez.");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<JokesDTO>>(jokesDTOList, HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("/jokesWithoutprimeraVez")
+	public ResponseEntity<?> getJokesWithoutPrimeraVez() {
+		Map<String, Object> response = new HashMap<>();
+		List<JokesDTO> jokesDTOList = null;
+		try {
+			jokesDTOList = jokesService.findAllDTO().stream().filter(j -> j.getPrimeraVez() == null)
+					.collect(Collectors.toList());
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		if (jokesDTOList.isEmpty()) {
+			response.put("mensaje", "No hay chistes sin asociar a una primera vez.");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<JokesDTO>>(jokesDTOList, HttpStatus.OK);
+
+	}
+	
+	
+	
 
 	
 }
