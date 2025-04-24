@@ -18,6 +18,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import jakarta.persistence.JoinColumn;
 @Entity
 @Table(name = "flags", catalog = "jokes")
@@ -31,6 +33,8 @@ public class Flags implements java.io.Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(name = "flag", length = 100)
+	 @NotBlank(message = "El nombre del flag es obligatorio")
+    @Size(max = 100, message = "flag no puede superar los 100 caracteres")
 	private String flag;
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "jokes_flags", catalog = "jokes", joinColumns = {

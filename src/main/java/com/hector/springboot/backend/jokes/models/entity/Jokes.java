@@ -24,6 +24,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -44,16 +47,22 @@ public class Jokes implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
+	@NotNull(message = "La categoría es obligatoria")
 	private Categories categories;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "language_id")
+    @NotNull(message = "El idioma es obligatorio")
 	private Language language;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "type_id")
+    @NotNull(message = "El tipo es obligatorio")
 	private Types types;
 	@Column(name = "text1", length = 1000)
+	 @NotBlank(message = "El texto principal es obligatorio")
+    @Size(max = 1000, message = "text1 no puede superar los 1000 caracteres")
 	private String text1;
 	@Column(name = "text2", length = 1000)
+    @Size(max = 1000, message = "text2 no puede superar los 1000 caracteres")
 	private String text2;
 	@ManyToMany(fetch = FetchType.LAZY,cascade= {CascadeType.MERGE})
 	@JoinTable(name = "jokes_flags", catalog = "jokes", joinColumns = {
