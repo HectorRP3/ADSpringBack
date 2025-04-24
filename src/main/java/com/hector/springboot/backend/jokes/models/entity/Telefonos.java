@@ -31,7 +31,7 @@ public class Telefonos implements java.io.Serializable {
 	@Column(name = "id", unique = true, nullable = false)
 	private long id;
 	@ManyToOne(fetch = FetchType.LAZY, optional = true)
-	@JoinColumn(name = "idprimeravez", nullable = true)
+	@JoinColumn(name = "primera_vez_id", nullable = true)
 	private PrimeraVez primeraVez;
 	@Column(name = "numero", nullable = false, length = 30)
 	private String numero;

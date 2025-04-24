@@ -11,7 +11,4 @@ import com.hector.springboot.backend.jokes.proyecciones.ConFlags;
 
 public interface IflagsDAO extends CrudRepository<Flags, Long> {
 	List<Flags> findAll();
-	 
-	@Query("SELECT f FROM Flags f JOIN FETCH f.jokeses j WHERE j.id = :id")
-	List<Flags> findByJokesId(@Param("id") Long id);
 }

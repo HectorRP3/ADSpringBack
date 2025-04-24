@@ -39,7 +39,7 @@ public class PrimeraVez implements java.io.Serializable {
 	@Column(name = "id", unique = true, nullable = false)
 	private long id;
 	@OneToOne(optional = false)
-    @JoinColumn(name = "idjoke", unique = true)
+    @JoinColumn(name = "joke_id", unique = true)
     private Jokes jokes;
 	@Column(name = "programa", nullable = false)
 	private String programa;

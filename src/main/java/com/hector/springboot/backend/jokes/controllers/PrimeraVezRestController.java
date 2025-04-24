@@ -46,8 +46,18 @@ public class PrimeraVezRestController {
 	}
 
 	@GetMapping("/primeravez/{id}")
-	public PrimeraVez show(@PathVariable Long id) {
-		return this.primeraVezService.findById(id);
+	public PrimeraVezDto show(@PathVariable Long id) {
+		PrimeraVez primera = this.primeraVezService.findById(id);
+		if (primera == null) {
+			return null;
+		}
+		PrimeraVezDto primeraVezDto = new PrimeraVezDto();
+		primeraVezDto.setId(primera.getId());
+		primeraVezDto.setPrograma(primera.getPrograma());
+		primeraVezDto.setFechaEmision(primera.getFechaEmision());
+		primeraVezDto.setJokes(primera.getJokes().getId());
+		primeraVezDto.setTelefonoses(primera.getTelefonoses().stream().map(Telefonos::getNumero).collect(Collectors.toSet()));
+		return primeraVezDto;
 	}
 
 	@PostMapping("/primeravez")

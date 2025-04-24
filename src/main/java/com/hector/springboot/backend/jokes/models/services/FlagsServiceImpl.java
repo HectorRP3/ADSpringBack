@@ -55,4 +55,6 @@ public class FlagsServiceImpl implements IFlagsService {
 	public void delete(Long id) {
 		flagsDao.deleteById(id);
 	}
+
+
 }

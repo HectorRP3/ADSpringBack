@@ -15,4 +15,4 @@ public interface IFlagsService {
 	public Flags findById(Long id);
 	public Flags save(Flags flags);
 	public void delete(Long id);
-}
+	}
