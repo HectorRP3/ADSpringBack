@@ -1,8 +1,10 @@
 package com.hector.springboot.backend.jokes.controllers;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hector.springboot.backend.jokes.mapper.JokesMapper;
 import com.hector.springboot.backend.jokes.models.dto.JokesDTO;
+import com.hector.springboot.backend.jokes.models.entity.Flags;
 import com.hector.springboot.backend.jokes.models.entity.Jokes;
+import com.hector.springboot.backend.jokes.models.services.IFlagsService;
 import com.hector.springboot.backend.jokes.models.services.IJokesService;
 import com.hector.springboot.backend.jokes.models.services.IPrimeraVezService;
 
@@ -39,6 +43,8 @@ public class JokesRestController {
 	private IJokesService jokesService;
 	@Autowired
 	private IPrimeraVezService primeraVezService;
+	@Autowired
+	private IFlagsService flagsService;
 	
 	@Autowired
 	private JokesMapper jokesMapper;
@@ -151,8 +157,21 @@ public class JokesRestController {
 			jokesActual.setCategories(jokes.getCategories());
 			jokesActual.setTypes(jokes.getTypes());
 			jokesActual.setLanguage(jokes.getLanguage());
-			jokesActual.setFlagses(jokes.getFlagses());
-		
+			Set<Flags> flags = new HashSet<>();
+			jokes.getFlagses().forEach(f -> {
+				Flags flag = flagsService.findById(f.getId());
+				if (flag != null) {
+					flags.add(flag);
+				}
+			});
+			jokesActual.getFlagses().forEach(f -> {
+				Flags flag = flagsService.findById(f.getId());
+                if (flag != null) {
+                    flags.add(flag);
+                }
+			});
+			jokesActual.getFlagses().clear();
+			jokesActual.setFlagses(flags);
             jokesUpdated = jokesService.save(jokesActual);
 		} catch (DataAccessException e) {
 			e.printStackTrace();
@@ -219,7 +238,7 @@ public class JokesRestController {
 		Map<String, Object> response = new HashMap<>();
 		List<JokesDTO> jokesDTOList = null;
 		try {
-			jokesDTOList = jokesService.findAllDTO().stream().filter(j -> j.getPrimeraVez() == null)
+			jokesDTOList = jokesService.findAllDTO().stream().filter(j -> j.getPrimeraVez() == null).sorted((j1,j2)->j1.getId().compareTo(j2.getId()))
 					.collect(Collectors.toList());
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar la consulta en la base de datos");

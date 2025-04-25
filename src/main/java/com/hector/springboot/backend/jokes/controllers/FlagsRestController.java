@@ -1,8 +1,11 @@
 package com.hector.springboot.backend.jokes.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hector.springboot.backend.jokes.mapper.FlagsMapper;
 import com.hector.springboot.backend.jokes.models.dto.FlagsDTO;
 import com.hector.springboot.backend.jokes.models.entity.Flags;
+import com.hector.springboot.backend.jokes.models.entity.Jokes;
 import com.hector.springboot.backend.jokes.models.services.IFlagsService;
 
 import jakarta.validation.Valid;
@@ -104,7 +108,10 @@ public class FlagsRestController {
 		}
 		try {
 			currentFlags.setFlag(flags.getFlag());
-			currentFlags.setJokeses(flags.getJokeses());
+			Set<Jokes> listajokes = new HashSet<Jokes>(0);
+			listajokes.addAll(currentFlags.getJokeses());
+			listajokes.addAll(flags.getJokeses());
+			currentFlags.setJokeses(listajokes);
 			flagsUpdate = flagsService.save(currentFlags);
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al actualizar la bandera en la base de datos");
