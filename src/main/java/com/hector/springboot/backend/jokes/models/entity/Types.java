@@ -2,6 +2,9 @@ package com.hector.springboot.backend.jokes.models.entity;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -28,6 +31,7 @@ public class Types implements java.io.Serializable {
 	private int id;
 	@Column(name = "type", length = 100)
 	private String type;
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "types", orphanRemoval = true)
 	private Set<Jokes> jokeses = new HashSet<Jokes>(0);
 

@@ -26,11 +26,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hector.springboot.backend.jokes.mapper.JokesMapper;
 import com.hector.springboot.backend.jokes.models.dto.JokesDTO;
+import com.hector.springboot.backend.jokes.models.entity.Categories;
 import com.hector.springboot.backend.jokes.models.entity.Flags;
 import com.hector.springboot.backend.jokes.models.entity.Jokes;
+import com.hector.springboot.backend.jokes.models.entity.Language;
+import com.hector.springboot.backend.jokes.models.entity.Types;
 import com.hector.springboot.backend.jokes.models.services.IFlagsService;
 import com.hector.springboot.backend.jokes.models.services.IJokesService;
 import com.hector.springboot.backend.jokes.models.services.IPrimeraVezService;
+import com.hector.springboot.backend.jokes.repository.ICategory;
+import com.hector.springboot.backend.jokes.repository.ILanguage;
+import com.hector.springboot.backend.jokes.repository.IType;
 
 import jakarta.*;
 import jakarta.validation.Valid;
@@ -45,6 +51,13 @@ public class JokesRestController {
 	private IPrimeraVezService primeraVezService;
 	@Autowired
 	private IFlagsService flagsService;
+	@Autowired
+	private ICategory categoryService;
+	@Autowired
+	private ILanguage languageService;
+	@Autowired
+	private IType typeService;
+	
 	
 	@Autowired
 	private JokesMapper jokesMapper;
@@ -86,6 +99,63 @@ public class JokesRestController {
 		return new ResponseEntity<List<JokesDTO>>(jokesDTOList, HttpStatus.OK);
 
 	}
+	
+	@GetMapping("/jokes/categories")
+	public ResponseEntity<?> getCategories() {
+		Map<String, Object> response = new HashMap<>();
+		List<Categories> categories = null;
+		try {
+			categories = categoryService.findAll();
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		if (categories.isEmpty()) {
+			response.put("mensaje", "No hay categorias disponibles.");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<Categories>>(categories, HttpStatus.OK);
+
+	}
+	@GetMapping("/jokes/languages")
+	public ResponseEntity<?> getLanguages() {
+		Map<String, Object> response = new HashMap<>();
+		List<Language> languages = null;
+		try {
+			languages = languageService.findAll();
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		if (languages.isEmpty()) {
+			response.put("mensaje", "No hay idiomas disponibles.");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<Language>>(languages, HttpStatus.OK);
+
+	}
+	
+	@GetMapping("/jokes/types")
+	public ResponseEntity<?> getTypes() {
+		Map<String, Object> response = new HashMap<>();
+		List<Types> types = null;
+		try {
+			types = typeService.findAll();
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		if (types.isEmpty()) {
+			response.put("mensaje", "No hay tipos disponibles.");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<Types>>(types, HttpStatus.OK);
+
+	}
+	
 	
 	@GetMapping("/jokes/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id){

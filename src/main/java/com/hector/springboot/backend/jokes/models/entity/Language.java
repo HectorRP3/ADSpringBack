@@ -2,6 +2,10 @@ package com.hector.springboot.backend.jokes.models.entity;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -31,6 +35,8 @@ public class Language implements java.io.Serializable {
 	private String code;
 	@Column(name = "language", length = 100)
 	private String language;
+	@JsonIgnoreProperties({ "language", "hibernateLazyInitializer", "handler" })
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "language", orphanRemoval = true)
 	private Set<Jokes> jokeses = new HashSet<Jokes>(0);
 
