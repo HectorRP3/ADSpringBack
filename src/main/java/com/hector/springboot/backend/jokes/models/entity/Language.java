@@ -6,6 +6,7 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -37,7 +38,7 @@ public class Language implements java.io.Serializable {
 	private String language;
 	@JsonIgnoreProperties({ "language", "hibernateLazyInitializer", "handler" })
 	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "language", orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "language",cascade = CascadeType.ALL)
 	private Set<Jokes> jokeses = new HashSet<Jokes>(0);
 
 	public Language() {
@@ -86,5 +87,14 @@ public class Language implements java.io.Serializable {
 	public void setJokeses(Set<Jokes> jokeses) {
 		this.jokeses = jokeses;
 	}
+	
+	 public void addJoke(Jokes joke) {
+	        jokeses.add(joke);
+	        joke.setLanguage(this);
+	    }
+	    public void removeJoke(Jokes joke) {
+	        jokeses.remove(joke);
+	        joke.setLanguage(null);
+	    }
 
 }
