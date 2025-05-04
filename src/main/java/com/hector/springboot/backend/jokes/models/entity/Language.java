@@ -31,6 +31,7 @@ public class Language implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Column(name = "code", length = 10)
 	private String code;

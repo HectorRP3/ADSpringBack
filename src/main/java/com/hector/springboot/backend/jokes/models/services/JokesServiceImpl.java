@@ -13,6 +13,7 @@ import com.hector.springboot.backend.jokes.mapper.JokesMapper;
 import com.hector.springboot.backend.jokes.models.dao.IjokesDAO;
 import com.hector.springboot.backend.jokes.models.dto.JokesDTO;
 import com.hector.springboot.backend.jokes.models.entity.Jokes;
+import com.hector.springboot.backend.jokes.models.entity.Language;
 
 @Service
 public class JokesServiceImpl implements IJokesService {
@@ -65,6 +66,7 @@ public class JokesServiceImpl implements IJokesService {
 		jokesDao.deleteById(id);
 		
 	}
+
 	
 	
 	

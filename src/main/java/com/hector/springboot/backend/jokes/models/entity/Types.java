@@ -28,6 +28,7 @@ public class Types implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Column(name = "type", length = 100)
 	private String type;
