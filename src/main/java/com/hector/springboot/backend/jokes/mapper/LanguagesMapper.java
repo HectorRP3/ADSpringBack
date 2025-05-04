@@ -13,7 +13,7 @@ public class LanguagesMapper {
 		LanguagesDTO languagesDTO = new LanguagesDTO();
 		languagesDTO.setId(language.getId());
 		languagesDTO.setCode(language.getCode());
-		languagesDTO.setName(language.getLanguage());
+		languagesDTO.setLanguage(language.getLanguage());
 		return languagesDTO;
 	}
 }

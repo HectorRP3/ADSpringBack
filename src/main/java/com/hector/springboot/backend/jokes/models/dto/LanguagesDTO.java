@@ -22,11 +22,11 @@ public class LanguagesDTO {
 		this.code = code;
 	}
 
-	public String getName() {
+	public String getLanguage() {
 		return language;
 	}
 
-	public void setName(String language) {
+	public void setLanguage(String language) {
 		this.language = language;
 	}
 	
