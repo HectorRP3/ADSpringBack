@@ -62,25 +62,21 @@ public class JokesRestController {
 	@Autowired
 	private JokesMapper jokesMapper;
 
-	
-	/*@GetMapping("/jokes")
-	public List<Jokes> index(){
-		return jokesService.findAll().stream().sorted((j1, j2) -> j1.getId().compareTo(j2.getId())).toList();
-	}*/
 	@GetMapping("/jokes")
 	public ResponseEntity<?> search(@RequestParam(name = "texto", required = false)String texto) {
 		Map<String, Object> response = new HashMap<>();
 		List<JokesDTO> jokesDTOList = null;
 		try {
 			if(texto!=null) {
-				jokesDTOList = jokesService.findAllDTO().stream()
+				/*jokesDTOList = jokesService.findAllDTO().stream()
 						.filter(j -> {
 							if (j.getText1() != null) {
 								return j.getText1().toLowerCase().contains(texto.toLowerCase());
 							}
 							return false;
 						})
-						.collect(Collectors.toList());
+						.collect(Collectors.toList());*/
+				jokesDTOList = jokesService.findByText(texto).stream().map(jokesMapper::toDTO).collect(Collectors.toList());
 			}else {
 				jokesDTOList = jokesService.findAllDTO().stream().sorted((j1, j2) -> j1.getId().compareTo(j2.getId()))
 						.toList();

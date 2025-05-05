@@ -67,6 +67,11 @@ public class JokesServiceImpl implements IJokesService {
 		
 	}
 
+	@Override
+	public List<Jokes> findByText(String text) {
+		return jokesDao.findByText(text);
+	}
+
 	
 	
 	

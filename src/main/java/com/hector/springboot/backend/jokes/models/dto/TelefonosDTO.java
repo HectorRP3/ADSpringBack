@@ -1,8 +1,12 @@
 package com.hector.springboot.backend.jokes.models.dto;
 
+import jakarta.validation.constraints.NotNull;
+
 public class TelefonosDTO {
 	public Long id;
+	@NotNull(message = "El número no puede ser nulo")
 	public String numero;
+	
 	public Long primeraVezId;
 	
 	public TelefonosDTO() {

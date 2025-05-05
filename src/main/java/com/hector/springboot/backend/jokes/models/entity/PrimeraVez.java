@@ -55,6 +55,7 @@ public class PrimeraVez implements java.io.Serializable {
 	 @NotNull(message = "La fecha de emisión es obligatoria")
     @PastOrPresent(message = "La fecha de emisión no puede ser futura")
 	private Date fechaEmision;
+	@NotNull(message = "Los teléfonos son obligatorios")
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "primeraVez")
 	private Set<Telefonos> telefonoses = new HashSet<Telefonos>(0);
 

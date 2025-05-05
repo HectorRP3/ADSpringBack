@@ -15,5 +15,8 @@ public interface IjokesDAO  extends CrudRepository<Jokes, Long>{
 	@Modifying
     @Query("DELETE FROM Jokes j WHERE j.language.id = :languageId")
     void deleteByLanguageId(@Param("languageId") Integer languageId);
+	
+	@Query("SELECT j from Jokes j WHERE LOWER(j.text1) LIKE LOWER(CONCAT('%', :text, '%'))")
+	List<Jokes> findByText(@Param("text") String text);
 
 }

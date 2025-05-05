@@ -24,6 +24,8 @@ public interface IJokesService {
 	
 	public void delete(Long id);
 	
+    public List<Jokes> findByText(String text);
+	
 	
 	
 }

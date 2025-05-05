@@ -20,6 +20,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.Pattern;
 import jakarta.persistence.JoinColumn;
 
 @Entity
@@ -33,6 +34,7 @@ public class Language implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Pattern(regexp = "^[a-z]{2}$", message = "El código de idioma debe tener el formato XX (dos letras minúsculas)")
 	@Column(name = "code", length = 10)
 	private String code;
 	@Column(name = "language", length = 100)
